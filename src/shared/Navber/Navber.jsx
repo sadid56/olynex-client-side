@@ -3,19 +3,34 @@ import { CiLogout } from "react-icons/ci";
 import { IoIosNotifications } from "react-icons/io";
 import { IoSearchSharp, IoSettings } from "react-icons/io5";
 import { MdOutlineDevicesOther } from "react-icons/md";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navber = () => {
-    return (
-        <div className="navbar p-0  flex items-center justify-between">
+  const { logOut, user } = useAuth();
+  const navigate = useNavigate();
+  //  logout user
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logout.");
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
+  return (
+    <div className="navbar p-0  flex items-center justify-between">
       {/* search form */}
       <div className="w-full mx-2 max-w-[300px] md:mx-auto">
         <form className="w-full">
           <label
             for="default-search"
             className="mb-2
-     text-sm font-medium text-gray-900 sr-only dark:text-white">
+     text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >
             Search
           </label>
           <div className="relative">
@@ -45,19 +60,21 @@ const Navber = () => {
               <summary>
                 <div className="avatar">
                   <div className="w-8 rounded-full border border-primary">
-                    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    <img src={user?.photoURL} />
                   </div>
                 </div>
-                <span>Sadid</span>
+                <span>{user?.displayName}</span>
               </summary>
 
               {/* drodown item */}
               <ul className="p-5 w-48 bg-base-100 rounded-t-none shadow-lg">
+                <button onClick={handleLogOut} className="btn text-xl">
+                  <CiLogout className="text-red-600" /> Logout
+                </button>
                 <li>
-                  <Link to={"/"}  className="btn text-xl"><CiLogout className="text-red-600"/> Logout</Link>
-                </li>
-                <li>
-                  <a  className="btn text-xl"><MdOutlineDevicesOther /> Others</a>
+                  <a className="btn text-xl">
+                    <MdOutlineDevicesOther /> Others
+                  </a>
                 </li>
               </ul>
             </details>
@@ -68,7 +85,7 @@ const Navber = () => {
         </Link>
       </div>
     </div>
-    );
+  );
 };
 
 export default Navber;

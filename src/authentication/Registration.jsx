@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../assets/images/login.jpg";
 import Input from "../Components/Input/Input";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { MdEmail, MdAddPhotoAlternate } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../hooks/useAxios";
 const Registration = () => {
   const {
     register,
@@ -14,14 +15,30 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
   const { createUser, profileUpdate } = useAuth();
+  const useAxios = useAxiosPublic();
+  const navigate = useNavigate()
   // create user with firebase
   const onSubmit = async (data) => {
     try {
       // create account
-      await createUser(data?.email, data?.password);
+      const  res = await createUser(data?.email, data?.password);
       // update user profile
+     if(res){
       await profileUpdate(data?.name, data?.photo);
-      toast.success("Account created successfully!");
+      const userInfo = {
+        name: data?.name,
+        photo: data?.photo,
+        email: data?.email,
+        role: "member",
+        date: new Date(),
+      };
+      const response = await useAxios.post("/users", userInfo);
+      if(response.data){
+        toast.success("Account created!");
+        navigate("/")
+      }
+     }
+      
     } catch (err) {
       toast.error(`Error: ${err.message}`);
       console.error("Error in onSubmit:", err);

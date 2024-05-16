@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
+import useCoOrdinetor from "../../hooks/useCoOrdinetor";
 
 
 const Sidebere = () => {
+    const [co] = useCoOrdinetor()
+    console.log(co)
     return (
         <div className="bg-slate-900 text-white h-screen px-10">
             <h2>Olynex</h2>
