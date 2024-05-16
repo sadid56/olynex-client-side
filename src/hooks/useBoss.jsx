@@ -3,19 +3,19 @@ import useAuth from './useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from './useAxios';
 
-const useCoOrdinetor = () => {
+// boss role get in database
+const useBoss = () => {
     const {user} = useAuth();
     const useAxios = useAxiosPublic()
-    const {data: co, isFetching:CoLoading} = useQuery({
-        queryKey:["CO-ordinetor", user?.email],
+    const {data: boss, isFetching:bossLoading} = useQuery({
+        queryKey:["boss", user?.email],
         queryFn: async()=>{
             const res = await useAxios.get(`/user/${user?.email}`);
-            console.log(res.data)
-            return res.data?.co_ordinetor
+            return res.data?.boss
             
         }
     })
-    return [co, CoLoading]
+    return [boss, bossLoading]
 };
 
-export default useCoOrdinetor;
+export default useBoss;

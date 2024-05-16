@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useCoOrdinetor from "../hooks/useCoOrdinetor";
+import useBoss from "../hooks/useBoss";
 
-// CO-ordinetor role private routers
-const CORouter = ({children}) => {
+// boss role private routers
+const BossRouter = ({children}) => {
     const {user, loading}= useAuth()
-    const [co , CoLoading] = useCoOrdinetor()
+    const [boss, bossLoading] = useBoss()
     const location = useLocation()
-    if(loading || CoLoading){
+    if(loading || bossLoading){
         return <p className="text-center">Loading...</p>
     }
-    if(user && co){
+    if(user && boss){
         return children
     }
     return <Navigate state={location?.pathname} to='/'/>
 }
  
-export default CORouter;
+export default BossRouter;

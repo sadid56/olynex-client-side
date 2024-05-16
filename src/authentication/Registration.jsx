@@ -29,7 +29,7 @@ const Registration = () => {
         name: data?.name,
         photo: data?.photo,
         email: data?.email,
-        role: "member",
+        role: "employe",
         date: new Date(),
       };
       const response = await useAxios.post("/users", userInfo);

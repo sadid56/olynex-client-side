@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useCoOrdinetor from "../hooks/useCoOrdinetor";
+import useMockup from "../hooks/useMockup";
 
-// CO-ordinetor role private routers
-const CORouter = ({children}) => {
+// mockup role  private router
+const MockupRouter = ({children}) => {
     const {user, loading}= useAuth()
-    const [co , CoLoading] = useCoOrdinetor()
+    const [mockup, mockupLoading] = useMockup()
     const location = useLocation()
-    if(loading || CoLoading){
+    if(loading || mockupLoading){
         return <p className="text-center">Loading...</p>
     }
-    if(user && co){
+    if(user && mockup){
         return children
     }
     return <Navigate state={location?.pathname} to='/'/>
-}
- 
-export default CORouter;
+};
+
+export default MockupRouter;
