@@ -10,7 +10,6 @@ const useCoOrdinetor = () => {
         queryKey:["CO-ordinetor", user?.email],
         queryFn: async()=>{
             const res = await useAxios.get(`/user/${user?.email}`);
-            console.log(res.data)
             return res.data?.co_ordinetor
             
         }

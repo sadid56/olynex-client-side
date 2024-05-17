@@ -1,8 +1,9 @@
+import BossCoDashboardHeader from "../../../../Components/BossCoDashbaordHeader/BossCoDashboardHeader";
 
 const CoHome = () => {
     return (
         <div>
-            cooo
+            <BossCoDashboardHeader/>
         </div>
     );
 };

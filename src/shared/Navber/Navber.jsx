@@ -22,7 +22,7 @@ const Navber = () => {
       });
   };
   return (
-    <div className="navbar p-0  flex items-center justify-between">
+    <div className="navbar p-0  flex items-center justify-between ">
       {/* search form */}
       <div className="w-full mx-2 max-w-[300px] md:mx-auto">
         <form className="w-full">

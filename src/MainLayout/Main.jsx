@@ -11,7 +11,7 @@ const Main = () => {
     <div className="flex">
       {/* dashboard sideber */}
       <div
-        className={`transition-all duration-300 absolute z-50 ${
+        className={`transition-all duration-300 z-50 fixed top-0 ${
           isToggle ? "translate-x-0" : "-translate-x-72"
         }`}
       >
@@ -19,7 +19,7 @@ const Main = () => {
       </div>
       {/* main layout or navber */}
       <div className={`w-full transition-all duration-300`}>
-        <nav className="flex -z-10 items-center w-full px-3 bg-[#00215E]">
+        <nav className="flex z-10 items-center w-full sticky top-0 px-3 bg-[#00215E]">
           <button onClick={() => setIsToggle(true)}>
             <FaBars className="text-2xl text-white" />
           </button>

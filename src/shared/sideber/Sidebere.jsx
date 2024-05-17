@@ -11,6 +11,7 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdOutlineCreateNewFolder,
   MdEvent,
+  MdTaskAlt,
 } from "react-icons/md";
 import { GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
@@ -48,6 +49,13 @@ const Sidebere = ({ setIsToggle }) => {
       conditionIcon: <BsChatDots />,
     },
     // CO related
+    
+    {
+      condition: co,
+      path: "/dashboard/all-tasks",
+      label: "All tasks",
+      conditionIcon: <MdTaskAlt/>,
+    },
     {
       condition: co,
       path: "/dashboard/create-task",
@@ -92,7 +100,7 @@ const Sidebere = ({ setIsToggle }) => {
   ];
 
   return (
-    <div className="bg-slate-900 text-white h-screen  w-fit z-50">
+    <div className="bg-slate-900 text-white  h-screen w-fit z-50">
       {/* logo and close sideber */}
       <div className="flex  items-center px-4 py-3 w-full justify-between border-b border-primary ">
         <h2 className="text-3xl font-semibold">
@@ -103,11 +111,11 @@ const Sidebere = ({ setIsToggle }) => {
         </button>
       </div>
 
-      <ul className="mt-10 flex flex-col justify-between h-[80vh] gap-5 px-10">
-        <div id="nav" className="space-y-4">
+      <ul className="mt-10 flex flex-col justify-between h-[80vh] gap-5 px-7">
+        <div id="nav" className="space-y-2">
           {/* dashboard home define with all user */}
           <li>
-            <StyledNavLink to="/dashboard" icon={<MdDashboard />}>
+            <StyledNavLink to="/dashboard/home" icon={<MdDashboard />}>
               Dashboard
             </StyledNavLink>
           </li>
@@ -123,9 +131,10 @@ const Sidebere = ({ setIsToggle }) => {
               )
           )}
           {/* event dropdown */}
-          <div className="dropdown-container">
+          {
+            boss && <div className="dropdown-container">
             <button
-              className="flex items-center gap-2 text-xl font-semibold"
+              className="flex items-center gap-2 text-xl font-semibold hover:bg-gray-600 p-2 rounded"
               onClick={() => setToggleEvents(!toggleEvents)}
             >
               <span className="bg-primary p-1 rounded-md text-white">
@@ -142,9 +151,10 @@ const Sidebere = ({ setIsToggle }) => {
               </ul>
             </div>
           </div>
+          }
         </div>
         {/* profile & setting  rotuer  define in every user role */}
-        <div className="mt-5 space-y-4">
+        <div className="mt-5 space-y-2">
           <li>
             <StyledNavLink to="/dashboard/profile" icon={<FaUserCircle />}>
               Profile

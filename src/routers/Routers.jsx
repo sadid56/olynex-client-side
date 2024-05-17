@@ -3,11 +3,18 @@ import Login from "../authentication/Login";
 import Main from "../MainLayout/Main";
 import DashboardMainHome from "../pages/dashboard/DashboardMainHome/DashboardMainHome";
 import Registration from "../authentication/Registration";
+import PrivateRoute from "../Private/PrivateRoute";
+import Profile from "../pages/profile/Profile";
+import ErrorPage from "../pages/errorPage/ErrorPage";
+import CORouter from "../Private/CoRouters";
+import CreateTask from "../pages/dashboard/CoOrdinetorDashbaord/CreateTask/CreateTask";
+import AllTask from "../pages/dashboard/CoOrdinetorDashbaord/allTask/AllTask";
 
 const Routers = createBrowserRouter([
     {
         path:"/",
-        element:<Login/>
+        element:<Login/>,
+        errorElement:<ErrorPage/>,
     },
     {
         path:"registration",
@@ -16,10 +23,23 @@ const Routers = createBrowserRouter([
     {
         path:"/dashboard",
         element:<Main/>,
+        errorElement:<ErrorPage/>,
         children:[
             {
-                path:"/dashboard",
-                element: <DashboardMainHome/>
+                path:"/dashboard/home",
+                element: <PrivateRoute><DashboardMainHome/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/profile",
+                element:<PrivateRoute><Profile/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/create-task",
+                element:<CORouter><CreateTask/></CORouter>
+            },
+            {
+                path:"/dashboard/all-tasks",
+                element:<CORouter><AllTask/></CORouter>
             }
         ]
     }
