@@ -1,4 +1,3 @@
-
 import { useForm } from "react-hook-form";
 import { MdCreate } from "react-icons/md";
 import useAxiosPublic from "../../../../hooks/useAxios";
@@ -37,9 +36,20 @@ const CreateTask = () => {
     try {
       const res = await useAxios.post("tasks", taskInfo);
       if (res.data) {
-        toast.success("Task created successfully");
-        navigate("/dashboard/all-tasks");
-        reset();
+        const notificationInfo = {
+          receiverId: singleUser?._id,
+          date: new Date(),
+          text: "You create a task",
+          count: 1,
+          status: "Unread",
+        };
+        // send a notification
+        const respons = await useAxios.post("/notifications", notificationInfo);
+        if (respons.data) {
+          toast.success("Task created successfully");
+          navigate("/dashboard/all-tasks");
+          reset();
+        }
       }
     } catch (err) {
       console.error("Task submit error:", err.message);

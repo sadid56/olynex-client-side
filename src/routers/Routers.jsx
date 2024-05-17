@@ -12,6 +12,7 @@ import AllTask from "../pages/dashboard/CoOrdinetorDashbaord/allTask/AllTask";
 import EmployeRouter from "../Private/EmployeRouter";
 import MyTask from "../pages/dashboard/employDashboard/myTask/MyTask";
 import ViewTask from "../pages/dashboard/employDashboard/myTask/ViewTask";
+import VIewSubmitionCO from "../Components/viewSubmitionCo/VIewSubmitionCO";
 
 const Routers = createBrowserRouter([
     {
@@ -51,6 +52,11 @@ const Routers = createBrowserRouter([
             {
                 path:"/dashboard/my-task/:id",
                 element:<EmployeRouter><ViewTask/></EmployeRouter>,
+                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
+            },
+            {
+                path:"/dashboard/all-task/:id",
+                element:<CORouter><VIewSubmitionCO/></CORouter>,
                 loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
             }
         ]

@@ -18,17 +18,18 @@ const ViewTask = () => {
     taskCreator,
     sendingDate,
     CoSendStatus,
+    senderId,
+    receiverId,
   } = task;
 
   // set timer with accepted task
   useEffect(() => {
     let timer;
-    if (CoSendStatus === "accept" || CoSendStatus === "submit") {
+    if (CoSendStatus === "accept") {
       timer = setInterval(() => {
         const now = new Date();
         const startTime = new Date(sendingDate);
         const diff = now - startTime;
-
         const seconds = Math.floor((diff / 1000) % 60);
         const minutes = Math.floor((diff / 1000 / 60) % 60);
         const hours = Math.floor((diff / 1000 / 60 / 60) % 24);
@@ -49,9 +50,22 @@ const ViewTask = () => {
         `/task-status/${task?._id}`,
         updateStatus
       );
+      // send a notification
       if (res.data?.acknowledged) {
-        toast.success("Accepted!");
-        navigate(-1);
+        const notificationInfo = {
+          receiverId: senderId,
+          senderId: receiverId,
+          date: new Date(),
+          text: "Accepted your task",
+          count: 1,
+          status:"Unread"
+        };
+        // send a notification
+        const respons = await useAxios.post("/notifications", notificationInfo);
+        if (respons.data) {
+          toast.success("Accepted!");
+          navigate(-1);
+        }
       }
     } catch (err) {
       toast.error(err?.message);
@@ -68,8 +82,20 @@ const ViewTask = () => {
         updateStatus
       );
       if (res.data?.acknowledged) {
-        toast.success("Rejected!");
-        navigate(-1);
+        const notificationInfo = {
+          receiverId: receiverId,
+          senderId: senderId,
+          date: new Date(),
+          text: "rejected your task",
+          count: 1,
+          status:"Unread"
+        };
+        // send a notification
+        const respons = await useAxios.post("/notifications", notificationInfo);
+        if (respons.data) {
+          toast.success("Rejected!");
+          navigate(-1);
+        }
       }
     } catch (err) {
       toast.error(err?.message);
@@ -107,13 +133,13 @@ const ViewTask = () => {
             {taskResours}
           </Link>
         </p>
-        <p className="text-gray-600">Description: {taskDescription}</p>
-        {CoSendStatus === "accept" || CoSendStatus === "submit" && elapsedTime && (
+        {CoSendStatus === "accept" && elapsedTime && (
           <h3 className="text-lg font-medium">
             Accepted Time: {elapsedTime.days}d {elapsedTime.hours}h{" "}
             {elapsedTime.minutes}m {elapsedTime.seconds}s
           </h3>
         )}
+        <p className="text-gray-600">Description: {taskDescription}</p>
         <p>Status: {CoSendStatus}</p>
         {/* action */}
         <div className="flex items-center gap-3">

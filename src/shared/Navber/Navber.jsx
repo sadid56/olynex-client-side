@@ -6,10 +6,25 @@ import { MdOutlineDevicesOther } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useNotification from "../../hooks/useNotification";
+import Notification from "./Notification";
+import useSingleUser from "../../hooks/useSingleUser";
 
 const Navber = () => {
   const { logOut, user } = useAuth();
   const navigate = useNavigate();
+  const [singleUser] = useSingleUser();
+  const [notifications, refetch, isLoading] = useNotification();
+  // filter a user wise notification
+  const filterNotification = notifications?.filter(
+    (notification) => notification?.receiverId === singleUser?._id
+  );
+
+  // reduce a notification length
+  const notificationCount = filterNotification?.reduce(
+    (pre, current) => pre + current?.count,
+    0
+  );
   //  logout user
   const handleLogOut = () => {
     logOut()
@@ -50,10 +65,34 @@ const Navber = () => {
 
       {/* navber right side content */}
       <div className="flex items-center gap-0 md:gap-6 mr-0 md:mr-5">
-        <div className="text-2xl relative text-white">
-          <IoIosNotifications />
-          <div className="absolute w-2 h-2 rounded-full  bg-red-600 top-0 right-0"></div>
+        {/* notifications */}
+        <div className="dropdown dropdown-end dropdown-hover">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn text-xl bg-transparent text-white border-0 hover:bg-gray-600 m-1"
+          >
+            <IoIosNotifications />
+            <div className="badge badge-secondary">{notificationCount}</div>
+          </div>
+          <div
+            style={{ boxShadow: "0px 0px 30px gray" }}
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 "
+          >
+            <div className="overflow-y-auto h-[80vh] flex flex-col gap-2">
+              {filterNotification?.map((notification) => (
+                <Notification
+                  key={notification?._id}
+                  notification={notification}
+                  refetch={refetch}
+                  isLoading={isLoading}
+                />
+              ))}
+            </div>
+          </div>
         </div>
+        {/* avatar */}
         <ul className="menu menu-horizontal relative">
           <li className="text-white">
             <details>

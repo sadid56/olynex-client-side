@@ -7,11 +7,11 @@ import useAllUser from "../../hooks/useAllUser";
 import useSingleUser from "../../hooks/useSingleUser";
 import useAxiosPublic from "../../hooks/useAxios";
 import toast from "react-hot-toast";
-const TaskSend = ({task, refetch}) => {
+const TaskSend = ({ task, refetch }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [allUser] = useAllUser();
-  const [singleUser] = useSingleUser()
-  const useAxios = useAxiosPublic()
+  const [singleUser] = useSingleUser();
+  const useAxios = useAxiosPublic();
 
   // filter user role with employe
   const filterUser = allUser?.filter((user) => user?.role === "employe");
@@ -40,24 +40,38 @@ const TaskSend = ({task, refetch}) => {
   }
 
   // handle send task in employee
-  const handleSend = async(selectUser) =>{
-     const sendInfo = {
-        senderId:singleUser?._id,
-        receiverId:selectUser?._id,
-        CoSendStatus:"pending",
-        sendingDate: new Date()
-     }
-     try{
-        const  res = await useAxios.patch(`/tasksend/${task?._id}`, sendInfo)
-        if(res.data?.acknowledged){
-            toast.success("Send success!")
-            closeModal()
-            refetch()
+  const handleSend = async (selectUser) => {
+    const sendInfo = {
+      senderId: singleUser?._id,
+      receiverId: selectUser?._id,
+      CoSendStatus: "pending",
+      sendingDate: new Date(),
+    };
+    try {
+      // send a  task
+      const res = await useAxios.patch(`/tasksend/${task?._id}`, sendInfo);
+      if (res.data?.acknowledged) {
+        const notificationInfo = {
+          receiverId: selectUser?._id,
+          senderId: singleUser?._id,
+          date: new Date(),
+          text: "send a new task",
+          count: 1,
+          status:"Unread"
+        };
+        // send a notification
+        const respons = await useAxios.post("/notifications", notificationInfo);
+        console.log(res.data);
+        if (respons.data) {
+          toast.success("Send success!");
+          closeModal();
+          refetch();
         }
-     }catch(err){
-        toast.error(err?.message)
-     }
-  }
+      }
+    } catch (err) {
+      toast.error(err?.message);
+    }
+  };
   return (
     <>
       <button
@@ -80,7 +94,9 @@ const TaskSend = ({task, refetch}) => {
         </button>
         {/* modal content */}
         <div>
-            <h3 className="text-center text-3xl font-semibold mt-2">All Employee:</h3>
+          <h3 className="text-center text-3xl font-semibold mt-2">
+            All Employee:
+          </h3>
           {filterUser?.map((user) => (
             <div
               key={user?._id}
@@ -94,7 +110,10 @@ const TaskSend = ({task, refetch}) => {
                 </div>
                 <h2 className="text-lg font-medium">{user?.name}</h2>
               </div>
-              <button onClick={()=>handleSend(user)} className="btn bg-primary text-white hover:bg-blue-500">
+              <button
+                onClick={() => handleSend(user)}
+                className="btn bg-primary text-white hover:bg-blue-500"
+              >
                 Send <IoIosSend />
               </button>
             </div>

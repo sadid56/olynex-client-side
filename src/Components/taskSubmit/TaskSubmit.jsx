@@ -3,18 +3,12 @@ import { useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { MdClose } from "react-icons/md";
 import Modal from "react-modal";
-import useAllUser from "../../hooks/useAllUser";
-import useSingleUser from "../../hooks/useSingleUser";
 import useAxiosPublic from "../../hooks/useAxios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 const TaskSubmit = ({ task, refetch }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [allUser] = useAllUser();
-  const [singleUser] = useSingleUser();
   const useAxios = useAxiosPublic();
-  const navigate = useNavigate();
 
   // modal style
   const customStyles = {
@@ -59,9 +53,22 @@ const TaskSubmit = ({ task, refetch }) => {
     try {
       const res = await useAxios.patch(`/submit-task/${task?._id}`, taskInfo);
       if (res.data) {
-        toast.success("Task Submited!");
-        closeModal();
-        reset();
+        const notificationInfo = {
+          receiverId: task?.senderId,
+          senderId: task?.receiverId,
+          date: new Date(),
+          text: "Task submited",
+          count: 1,
+          status:"Unread"
+        };
+        // send a notification
+        const respons = await useAxios.post("/notifications", notificationInfo);
+        if (respons.data) {
+          toast.success("Task Submited!");
+          closeModal();
+          refetch();
+          reset();
+        }
       }
     } catch (err) {
       console.error("Task submit error:", err.message);
@@ -88,17 +95,17 @@ const TaskSubmit = ({ task, refetch }) => {
         {/* modal content */}
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">Note</span>
-                </label>
-                <input
-                  {...register("note")}
-                  type="text"
-                  placeholder="Any submit note [optional]"
-                  className="input input-bordered"
-                />
-             
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Note</span>
+              </label>
+              <input
+                {...register("note")}
+                type="text"
+                placeholder="Any submit note [optional]"
+                className="input input-bordered"
+              />
+
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Submit url</span>

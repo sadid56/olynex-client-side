@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import TaskSend from "../../../../Components/taskSend/TaskSend";
 
 const Task = ({ task, isLoading, i, refetch }) => {
-  const { taskTitle, taskCategory, taskCreatedAt, taskCreator, CoSendStatus } =
+  const navigate = useNavigate()
+  const { taskTitle, taskCategory, taskCreatedAt, taskCreator, CoSendStatus, _id } =
     task;
   if (isLoading) {
     return <p className="text-center">loadiing...</p>;
@@ -36,8 +38,8 @@ const Task = ({ task, isLoading, i, refetch }) => {
             </button>
           )) ||
           (CoSendStatus === "submit" && (
-            <button className="btn btn-info text-white">
-              View Submited
+            <button onClick={()=>navigate(`/dashboard/all-task/${_id}`)} className="btn btn-info text-white">
+              View Submition
             </button>
           ))
           }
