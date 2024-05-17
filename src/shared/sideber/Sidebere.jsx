@@ -81,8 +81,8 @@ const Sidebere = ({ setIsToggle }) => {
     // employ related
     {
       condition: employe,
-      path: "/dashboard/total-task",
-      label: "Total Task",
+      path: "/dashboard/My-task",
+      label: "My Task",
       conditionIcon: <BsListTask />,
     },
     {

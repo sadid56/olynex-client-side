@@ -26,6 +26,7 @@ const CreateTask = () => {
       taskResours: data?.file,
       taskDescription: data.description,
       taskCreatedAt: new Date(),
+      CoSendStatus: "create",
       taskCreator: {
         creatorId: singleUser?._id,
         creatorName: singleUser?.name,

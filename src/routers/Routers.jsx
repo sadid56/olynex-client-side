@@ -9,6 +9,9 @@ import ErrorPage from "../pages/errorPage/ErrorPage";
 import CORouter from "../Private/CoRouters";
 import CreateTask from "../pages/dashboard/CoOrdinetorDashbaord/CreateTask/CreateTask";
 import AllTask from "../pages/dashboard/CoOrdinetorDashbaord/allTask/AllTask";
+import EmployeRouter from "../Private/EmployeRouter";
+import MyTask from "../pages/dashboard/employDashboard/myTask/MyTask";
+import ViewTask from "../pages/dashboard/employDashboard/myTask/ViewTask";
 
 const Routers = createBrowserRouter([
     {
@@ -40,6 +43,15 @@ const Routers = createBrowserRouter([
             {
                 path:"/dashboard/all-tasks",
                 element:<CORouter><AllTask/></CORouter>
+            },
+            {
+                path:"/dashboard/my-task",
+                element: <EmployeRouter><MyTask/></EmployeRouter>
+            },
+            {
+                path:"/dashboard/my-task/:id",
+                element:<EmployeRouter><ViewTask/></EmployeRouter>,
+                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
             }
         ]
     }
