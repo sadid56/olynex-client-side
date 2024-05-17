@@ -1,3 +1,4 @@
+import TableHeader from "../../../../Components/TableHeader/TableHeader";
 import useSingleUser from "../../../../hooks/useSingleUser";
 import useTasks from "../../../../hooks/useTasks";
 import MytaskSingle from "./MytaskSingle";
@@ -9,38 +10,23 @@ const MyTask = () => {
     (task) => task?.receiverId === singleUser?._id
   );
   return (
-    <div className="m-3">
-      <div className="w-full flex items-center justify-between">
-        <h2 className="text-2xl font-semibold border-b border-primary w-fit">
+    <div className="mt-3 mx-3">
+        <h2 className="text-2xl my-5 font-semibold border-b border-primary w-fit">
           All <span className="text-primary">Tasks:</span>
         </h2>
-        <input
-          type="text"
-          placeholder="Search task.."
-          className="px-4 py-2 outline-none focus:outline-none border border-gray-300 focus:border-gray-400 rounded"
-        />
-      </div>
+      
+
       <div className="overflow-x-auto  rounded-md mt-5">
         <table className="table">
           {/* head */}
-          <thead className="bg-primary text-slate-700 py-3 text-lg font-medium">
-            <tr>
-              <th>#</th>
-              <th>Category</th>
-              <th>Sending date</th>
-              <th>Sender name</th>
-              <th>View task</th>
-              <th>status</th>
-            </tr>
-          </thead>
+          <TableHeader/>
           <tbody>
             {/* row 1 */}
             {filterTask?.map((task, i) => (
               <MytaskSingle
                 key={task?._id}
                 task={task}
-                i={i}
-                
+                i={i}             
                 refetch={refetch}
               />
             ))}

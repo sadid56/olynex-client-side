@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { CiLogout } from "react-icons/ci";
 import { IoIosNotifications } from "react-icons/io";
-import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineDevicesOther } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -37,32 +36,7 @@ const Navber = () => {
       });
   };
   return (
-    <div className="navbar p-0  flex items-center justify-between ">
-      {/* search form */}
-      <div className="w-full mx-2 max-w-[300px] md:mx-auto">
-        <form className="w-full">
-          <label
-            for="default-search"
-            className="mb-2
-     text-sm font-medium text-gray-900 sr-only dark:text-white"
-          >
-            Search
-          </label>
-          <div className="relative">
-            <div className="absolute right-3 top-3">
-              <IoSearchSharp className="text-xl text-gray-300" />
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              className="block w-full p-2 md:py-[10px] ps-3 text-sm text-gray-300 border border-slate-400 rounded-lg bg-transparent focus:ring-primary focus:border-primary outline-none"
-              placeholder="Search Anything..."
-              required
-            />
-          </div>
-        </form>
-      </div>
-
+    <div className="navbar p-0  flex items-center justify-end ">
       {/* navber right side content */}
       <div className="flex items-center gap-0 md:gap-6 mr-0 md:mr-5">
         {/* notifications */}
@@ -78,7 +52,7 @@ const Navber = () => {
           <div
             style={{ boxShadow: "0px 0px 30px gray" }}
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 "
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-80 "
           >
             <div className="overflow-y-auto h-[80vh] flex flex-col gap-2">
               {filterNotification?.map((notification) => (

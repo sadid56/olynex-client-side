@@ -32,6 +32,12 @@ const Sidebere = ({ setIsToggle }) => {
     // Boss related
     {
       condition: boss,
+      path: "/dashboard/all-task-boss",
+      label: "Task Review",
+      conditionIcon: <MdTaskAlt/>,
+    },
+    {
+      condition: boss,
       path: "/dashboard/clients",
       label: "Clients",
       conditionIcon: <FaUsers />,
@@ -75,9 +81,19 @@ const Sidebere = ({ setIsToggle }) => {
       conditionIcon: <GoProjectRoadmap />,
     },
     // mockup related
-    { condition: mockup, path: "/dashboard/Mockup-home", label: "Mockup" },
+    {
+      condition: mockup,
+      path: "/dashboard/all-task-mockup",
+      label: "Task Mockup",
+      conditionIcon: <MdTaskAlt/>,
+    },
     // SEO related
-    { condition: seo, path: "/dashboard/SEO-home", label: "SEO" },
+    {
+      condition: seo,
+      path: "/dashboard/all-task-seo",
+      label: "SEO tasks",
+      conditionIcon: <MdTaskAlt/>,
+    },
     // employ related
     {
       condition: employe,

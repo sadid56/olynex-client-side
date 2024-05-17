@@ -3,7 +3,7 @@
 const MockupHome = () => {
     return (
         <div>
-            MockupHome
+            home
         </div>
     );
 };

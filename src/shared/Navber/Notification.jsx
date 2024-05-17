@@ -51,7 +51,7 @@ const Notification = ({notification, isLoading, refetch}) => {
                 <p className='text-gray-500 text-sm'>{status === "Unread" ? "Unread" : "Read" }</p>
             </div>
             <div>
-                <button onClick={handleDelete} className='btn btn-circle text-xl text-red-500'><MdClose/></button>
+                <button onClick={handleDelete} className='btn btn-sm btn-circle text-xl text-red-500'><MdClose/></button>
             </div>
         </div>
     );

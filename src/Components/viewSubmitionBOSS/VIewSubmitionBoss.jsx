@@ -1,62 +1,63 @@
-import { MdClose, MdDone } from "react-icons/md";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import ApplicationVIew from "../ApplicationVIew/ApplicationVIew";
+import { MdClose, MdDone } from "react-icons/md";
+import useAllUser from "../../hooks/useAllUser";
 import useAxiosPublic from "../../hooks/useAxios";
 import toast from "react-hot-toast";
-import ApplicationVIew from "../ApplicationVIew/ApplicationVIew";
-import useAllUser from "../../hooks/useAllUser";
 
-const VIewSubmitionCO = () => {
+const VIewSubmitionBoss = () => {
   const task = useLoaderData();
-  const [allUser] = useAllUser()
+  const [allUser] = useAllUser();
   const navigate = useNavigate();
   const useAxios = useAxiosPublic();
-  const { _id, CoSendStatus } = task;
-  // filter boss
-  const filterBoss = allUser?.find(user => user?.role === "boss")
-  // handle send in BOSS
-  const handleSend = async()=>{
+  // filter Mockup
+  const filterMockup = allUser?.find((user) => user?.role === "mockup");
+  const { _id } = task;
+  const handleSend = async () => {
     const sendInfo = {
-      bossInfo : {
-        bossId: filterBoss?._id,
-        bossStatus: "pending",
-        sendData: new Date()
-      }
-    }
-    try{
-      const  res = await useAxios.patch(`/send-boss/${_id}`, sendInfo)
-      console.log(res.data?.acknowledged)
-      if(res.data?.acknowledged){
+      mockupInfo: {
+        mockupId: filterMockup?._id,
+        mockupStatus: "pending",
+        sendData: new Date(),
+      },
+    };
+    try {
+      const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
+      if (res.data?.acknowledged) {
         // boss notification
         const notificationInfo = {
-          receiverId: filterBoss?._id,
-          senderId: task?.senderId,
+          receiverId: filterMockup?._id,
+          senderId: task?.bossInfo?.bossId,
           date: new Date(),
-          text: "CO send you task",
+          text: "BOSS send you task",
           count: 1,
           status: "Unread",
         };
         // employe notification
         const notificationInfo2 = {
           receiverId: task?.receiverId,
-          senderId: task?.senderId,
+          senderId: task?.bossInfo?.bossId,
           date: new Date(),
-          text: "CO accept your task",
+          text: "BOSS accept your task",
           count: 1,
           status: "Unread",
         };
         // send a notification
         const respons = await useAxios.post("/notifications", notificationInfo);
-        const respons2 = await useAxios.post("/notifications", notificationInfo2);
-        console.log(respons.data && respons2.data)
-        if(respons.data){
-          toast.success("Task sended in BOSS!");
+        const respons2 = await useAxios.post(
+          "/notifications",
+          notificationInfo2
+        );
+        console.log(respons.data && respons2.data);
+        if (respons.data) {
+          toast.success("Task sended in Mockup!");
           navigate(-1);
         }
       }
-    }catch(err){
-      toast.error(err.message)
+    } catch (err) {
+      toast.error(err.message);
     }
-  }
+  };
 
   // handle reject
   const handlReject = async () => {
@@ -70,7 +71,7 @@ const VIewSubmitionCO = () => {
           receiverId: task?.receiverId,
           senderId: task?.senderId,
           date: new Date(),
-          text: "CO reject your submition",
+          text: "BOSS reject your submition",
           count: 1,
           status: "Unread",
         };
@@ -91,27 +92,26 @@ const VIewSubmitionCO = () => {
         style={{ boxShadow: "0px 0px 30px gray" }}
         className="space-y-2 p-6 rounded-md"
       >
-        <ApplicationVIew task={task} title={"CO-Ordinetor"} />
+        <ApplicationVIew task={task} title={"BOSS"} />
         {/* action */}
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
           {
-            CoSendStatus === "accept" ? <>
-            <button disabled  className="btn bg-primary hover:bg-blue-500 disabled text-white">
-              <MdDone /> Accepted
-            </button>
-            <button disabled className="btn btn-error disabled text-white">
-              <MdClose /> Reject
-            </button>
-          </> : <>
-          <button onClick={handleSend} className="btn bg-primary hover:bg-blue-500 text-white">
-            <MdDone /> Accept
-          </button>
-          <button onClick={handlReject} className="btn btn-error text-white">
-            <MdClose /> Reject
-          </button>
-        </>
+            <>
+              <button
+                onClick={handleSend}
+                className="btn bg-primary hover:bg-blue-500 text-white"
+              >
+                <MdDone /> Accept
+              </button>
+              <button
+                onClick={handlReject}
+                className="btn btn-error text-white"
+              >
+                <MdClose /> Reject
+              </button>
+            </>
           }
         </div>
       </div>
@@ -119,4 +119,4 @@ const VIewSubmitionCO = () => {
   );
 };
 
-export default VIewSubmitionCO;
+export default VIewSubmitionBoss;

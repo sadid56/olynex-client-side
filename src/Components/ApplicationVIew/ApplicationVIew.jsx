@@ -24,7 +24,7 @@ const ApplicationVIew = ({task, title}) => {
     return (
         <div className="space-y-2">
             <h3 className="text-center text-2xl font-semibold border-b border-primary">
-     <span className="text-primary">{title}</span> riview
+     <span className="text-primary">{title}</span> review
         </h3>
         <div className="w-full flex  justify-end">
           <button

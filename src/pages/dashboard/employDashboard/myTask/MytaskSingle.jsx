@@ -2,6 +2,7 @@
 
 import { useNavigate } from "react-router-dom";
 import TaskSubmit from "../../../../Components/taskSubmit/TaskSubmit";
+import { MdOutlineDone } from "react-icons/md";
 
 const MytaskSingle = ({ task, i, refetch }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const MytaskSingle = ({ task, i, refetch }) => {
       <td>
         {(CoSendStatus === "pending" && (
           <button className="btn btn-info text-white">
-            <span className="loading loading-spinner text-white"></span>
+            Pending...
           </button>
         )) ||
           (CoSendStatus === "accept" && (
@@ -39,7 +40,8 @@ const MytaskSingle = ({ task, i, refetch }) => {
             <button disabled className="btn btn-info text-white disabled">
               Submited
             </button>
-          ))
+          )) ||
+          CoSendStatus === "completed" && <button className=" text-green-600 text-lg font-semibold flex items-center gap-1">Completed <MdOutlineDone className="text-xl"/></button>
           }
       </td>
     </tr>
