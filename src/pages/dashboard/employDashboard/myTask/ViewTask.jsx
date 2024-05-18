@@ -17,18 +17,19 @@ const ViewTask = () => {
     taskDescription,
     taskCreator,
     sendingDate,
-    CoSendStatus,
+    CoStatus,
     senderId,
     receiverId,
+    acceptAt
   } = task;
 
   // set timer with accepted task
   useEffect(() => {
     let timer;
-    if (CoSendStatus === "accept") {
+    if (CoStatus === "accept") {
       timer = setInterval(() => {
         const now = new Date();
-        const startTime = new Date(sendingDate);
+        const startTime = new Date(acceptAt);
         const diff = now - startTime;
         const seconds = Math.floor((diff / 1000) % 60);
         const minutes = Math.floor((diff / 1000 / 60) % 60);
@@ -39,15 +40,16 @@ const ViewTask = () => {
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [CoSendStatus, sendingDate]);
+  }, [CoStatus, acceptAt]);
   // accept  handler
   const handleAccept = async () => {
     const updateStatus = {
-      CoSendStatus: "accept",
+      CoStatus: "accept",
+      acceptAt: new Date()
     };
     try {
       const res = await useAxios.patch(
-        `/task-status/${task?._id}`,
+        `/accept-task/${task?._id}`,
         updateStatus
       );
       // send a notification
@@ -58,7 +60,7 @@ const ViewTask = () => {
           date: new Date(),
           text: "Accepted your task",
           count: 1,
-          status:"Unread"
+          status: "Unread",
         };
         // send a notification
         const respons = await useAxios.post("/notifications", notificationInfo);
@@ -74,7 +76,7 @@ const ViewTask = () => {
   // reject a task
   const handlReject = async () => {
     const updateStatus = {
-      CoSendStatus: "reject",
+      CoStatus: "reject",
     };
     try {
       const res = await useAxios.patch(
@@ -88,7 +90,7 @@ const ViewTask = () => {
           date: new Date(),
           text: "rejected your task",
           count: 1,
-          status:"Unread"
+          status: "Unread",
         };
         // send a notification
         const respons = await useAxios.post("/notifications", notificationInfo);
@@ -133,20 +135,21 @@ const ViewTask = () => {
             {taskResours}
           </Link>
         </p>
-        {CoSendStatus === "accept" && elapsedTime && (
+        {CoStatus === "accept" && elapsedTime && (
           <h3 className="text-lg font-medium">
             Accepted Time: {elapsedTime.days}d {elapsedTime.hours}h{" "}
             {elapsedTime.minutes}m {elapsedTime.seconds}s
           </h3>
         )}
         <p className="text-gray-600">Description: {taskDescription}</p>
-        <p>Status: {CoSendStatus}</p>
+        <p>Status: {CoStatus}</p>
         {/* action */}
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
-          {CoSendStatus === "accept" ||
-          CoSendStatus === "reject" ||
-          CoSendStatus === "submit" ? (
+          {CoStatus === "accept" ||
+          CoStatus === "reject" ||
+          CoStatus === "submit" ||
+          CoStatus === "completed" ? (
             <>
               <button disabled className="btn bg-gray-400 disabled text-white">
                 <MdDone /> Accepted

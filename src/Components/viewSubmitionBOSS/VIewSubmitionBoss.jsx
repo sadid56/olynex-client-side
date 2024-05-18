@@ -7,22 +7,22 @@ import toast from "react-hot-toast";
 
 const VIewSubmitionBoss = () => {
   const task = useLoaderData();
+  const { BossStatus, _id, MockupStatus } = task;
   const [allUser] = useAllUser();
   const navigate = useNavigate();
   const useAxios = useAxiosPublic();
   // filter Mockup
   const filterMockup = allUser?.find((user) => user?.role === "mockup");
-  const { _id } = task;
   const handleSend = async () => {
     const sendInfo = {
       mockupInfo: {
         mockupId: filterMockup?._id,
-        mockupStatus: "pending",
-        sendData: new Date(),
+        date: new Date(),
       },
+      MockupStatus: "send",
     };
     try {
-      const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
+      const res = await useAxios.patch(`/send-mockup/${_id}`, sendInfo);
       if (res.data?.acknowledged) {
         // boss notification
         const notificationInfo = {
@@ -62,10 +62,11 @@ const VIewSubmitionBoss = () => {
   // handle reject
   const handlReject = async () => {
     const updateDoc = {
-      CoSendStatus: "accept",
+      CoStatus: "accept",
+      BossStatus: "cencel",
     };
     try {
-      const res = await useAxios.patch(`/task-status/${_id}`, updateDoc);
+      const res = await useAxios.patch(`/reject-boss/${_id}`, updateDoc);
       if (res.data?.acknowledged) {
         const notificationInfo = {
           receiverId: task?.receiverId,
@@ -97,7 +98,21 @@ const VIewSubmitionBoss = () => {
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
-          {
+          {MockupStatus === "send" ||
+          BossStatus === "completed" ||
+          BossStatus === "cencel" ? (
+            <>
+              <button
+                disabled
+                className="btn bg-primary hover:bg-blue-500 disabled text-white"
+              >
+                <MdDone /> Accepted
+              </button>
+              <button disabled className="btn btn-error disabled text-white">
+                <MdClose /> Reject
+              </button>
+            </>
+          ) : (
             <>
               <button
                 onClick={handleSend}
@@ -112,7 +127,7 @@ const VIewSubmitionBoss = () => {
                 <MdClose /> Reject
               </button>
             </>
-          }
+          )}
         </div>
       </div>
     </div>

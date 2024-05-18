@@ -5,14 +5,33 @@ import { useNavigate } from "react-router-dom";
 
 const AllTask = () => {
   const [tasks, refetch, isLoading] = useTasks();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="m-3">
-        <div className="w-full flex items-center justify-between">
-            <h2 className="text-2xl font-semibold border-b border-primary w-fit">All <span className="text-primary">Tasks:</span></h2>
-            <button onClick={()=>navigate("/dashboard/create-task")} className="btn bg-primary hover:bg-blue-500 text-white">Create Task <MdCreate/></button>
+      <div className="w-full flex items-center justify-between">
+        <h2 className="text-2xl font-semibold border-b border-primary w-fit">
+          All <span className="text-primary">Tasks:</span>
+        </h2>
+        <div className="flex items-center gap-2">
+          {/* filter in co  task status */}
+          <select className="select select-ghost w-full max-w-xs border border-gray-300">
+            <option disabled selected>
+              Filter
+            </option>
+            <option>Pending</option>
+            <option>Completed</option>
+            <option>Accept</option>
+          </select>
+          {/* task create button */}
+          <button
+            onClick={() => navigate("/dashboard/create-task")}
+            className="btn bg-primary hover:bg-blue-500 text-white"
+          >
+            Create Task <MdCreate />
+          </button>
         </div>
+      </div>
       <div className="overflow-x-auto  rounded-md mt-5">
         <table className="table">
           {/* head */}
@@ -29,7 +48,13 @@ const AllTask = () => {
           <tbody>
             {/* row 1 */}
             {tasks?.map((task, i) => (
-              <Task key={task?._id} task={task} i={i} isLoading={isLoading} refetch={refetch}/>
+              <Task
+                key={task?._id}
+                task={task}
+                i={i}
+                isLoading={isLoading}
+                refetch={refetch}
+              />
             ))}
           </tbody>
         </table>

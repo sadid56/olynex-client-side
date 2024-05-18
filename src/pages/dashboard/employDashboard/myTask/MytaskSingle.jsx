@@ -3,10 +3,11 @@
 import { useNavigate } from "react-router-dom";
 import TaskSubmit from "../../../../Components/taskSubmit/TaskSubmit";
 import { MdOutlineDone } from "react-icons/md";
+import { BiTask } from "react-icons/bi";
 
 const MytaskSingle = ({ task, i, refetch }) => {
   const navigate = useNavigate();
-  const { taskCategory, sendingDate, taskCreator, CoSendStatus } = task;
+  const { taskCategory, sendingDate, taskCreator, CoStatus } = task;
 
   return (
     <tr className="hover:bg-gray-200 cursor-pointer border-b border-gray-200 text-[16px] font-medium">
@@ -23,25 +24,25 @@ const MytaskSingle = ({ task, i, refetch }) => {
         </button>
       </td>
       <td>
-        {(CoSendStatus === "pending" && (
-          <button className="btn btn-info text-white">
-            Pending...
+        {(CoStatus === "pending" && (
+          <button className="btn btn-info cursor-default text-white">
+            You got a task <BiTask/>
           </button>
         )) ||
-          (CoSendStatus === "accept" && (
+          (CoStatus === "accept" && (
             <TaskSubmit task={task} refetch={refetch} />
           )) ||
-          (CoSendStatus === "reject" && (
+          (CoStatus === "reject" && (
             <button disabled className="btn btn-info text-white disabled">
               Rejected
             </button>
           )) ||
-          (CoSendStatus === "submit" && (
+          (CoStatus === "submit" && (
             <button disabled className="btn btn-info text-white disabled">
               Submited
             </button>
           )) ||
-          CoSendStatus === "completed" && <button className=" text-green-600 text-lg font-semibold flex items-center gap-1">Completed <MdOutlineDone className="text-xl"/></button>
+          CoStatus === "completed" && <button className=" text-green-600 text-lg font-semibold flex items-center gap-1">Completed <MdOutlineDone className="text-xl"/></button>
           }
       </td>
     </tr>

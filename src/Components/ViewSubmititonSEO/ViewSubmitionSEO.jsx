@@ -13,17 +13,13 @@ const ViewSubmitionSEO = () => {
     const useAxios = useAxiosPublic();
     // filter CEO
     const findBoss = allUser?.find((user) => user?.role === "boss");
-    const { _id } = task;
+    const { _id, BossStatus } = task;
     const handleSend = async () => {
         const sendInfo = {
-          bossInfo: {
-            bossId: findBoss?._id,
-            bossStatus: "clear",
-            Data: new Date(),
-          },
+          BossStatus: "clear"
         };
         try {
-          const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
+          const res = await useAxios.patch(`/seo-boss/${_id}`, sendInfo);
           if (res.data?.acknowledged) {
             // BOSS notification
             const notificationInfo = {
@@ -61,10 +57,13 @@ const ViewSubmitionSEO = () => {
  // handle reject
  const handlReject = async () => {
     const updateDoc = {
-      CoSendStatus: "accept",
+      CoStatus: "accept",
+      BossStatus:"cencel",
+      MockupStatus:"cencel",
+      SeoStatus:"cencel"
     };
     try {
-      const res = await useAxios.patch(`/task-status/${_id}`, updateDoc);
+      const res = await useAxios.patch(`/reject-seo/${_id}`, updateDoc);
       if (res.data?.acknowledged) {
         const notificationInfo = {
           receiverId: task?.receiverId,
@@ -96,15 +95,21 @@ const ViewSubmitionSEO = () => {
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
-          {
-            //     bossInfo?.bossStatus === "pending" ? <>
-            //     <button disabled  className="btn bg-primary hover:bg-blue-500 disabled text-white">
-            //       <MdDone /> Accepted
-            //     </button>
-            //     <button disabled className="btn btn-error disabled text-white">
-            //       <MdClose /> Reject
-            //     </button>
-            //   </> :
+          {BossStatus === "cencel" ||
+          BossStatus === "completed" ||
+          BossStatus === "clear" ? (
+            <>
+              <button
+                disabled
+                className="btn bg-primary hover:bg-blue-500 disabled text-white"
+              >
+                <MdDone /> Accepted
+              </button>
+              <button disabled className="btn btn-error disabled text-white">
+                <MdClose /> Reject
+              </button>
+            </>
+          ) : (
             <>
               <button
                 onClick={handleSend}
@@ -119,7 +124,7 @@ const ViewSubmitionSEO = () => {
                 <MdClose /> Reject
               </button>
             </>
-          }
+          )}
         </div>
       </div>
     </div>

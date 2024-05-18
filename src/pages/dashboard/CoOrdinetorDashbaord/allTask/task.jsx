@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import TaskSend from "../../../../Components/taskSend/TaskSend";
 import { MdOutlineDone } from "react-icons/md";
+import { IoMdTime } from "react-icons/io";
 
 const Task = ({ task, isLoading, i, refetch }) => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Task = ({ task, isLoading, i, refetch }) => {
     taskCategory,
     taskCreatedAt,
     taskCreator,
-    CoSendStatus,
+    CoStatus,
     _id,
   } = task;
   if (isLoading) {
@@ -29,25 +30,25 @@ const Task = ({ task, isLoading, i, refetch }) => {
       </td>
       <td>
         {/* sending  status wise btn */}
-        {(CoSendStatus === "pending" && (
-          <button className="btn btn-info text-white">
-            <span className="loading loading-spinner text-white"></span>
+        {(CoStatus === "pending" && (
+          <button className="btn btn-info cursor-default text-white">
+            Pending<span className="loading loading-sm loading-spinner text-white"></span>
           </button>
         )) ||
-          (CoSendStatus === "accept" && (
-            <button className="btn btn-info text-white">
-              Wait for submition
+          (CoStatus === "accept" && (
+            <button className="btn btn-info cursor-wait text-white">
+              Wait for submition <IoMdTime />
             </button>
           )) ||
-          (CoSendStatus === "create" && (
+          (CoStatus === "create" && (
             <TaskSend task={task} refetch={refetch} />
           )) ||
-          (CoSendStatus === "reject" && (
+          (CoStatus === "reject" && (
             <button disabled className="btn btn-info text-white disabled">
               Rejected
             </button>
           )) ||
-          (CoSendStatus === "submit" && (
+          (CoStatus === "submit" && (
             <button
               onClick={() => navigate(`/dashboard/all-task/${_id}`)}
               className="btn btn-info text-white"
@@ -55,7 +56,7 @@ const Task = ({ task, isLoading, i, refetch }) => {
               View Submition
             </button>
           )) ||
-          (CoSendStatus === "completed" && (
+          (CoStatus === "completed" && (
             <button className=" text-green-600 text-lg font-semibold flex items-center gap-1">
               Completed <MdOutlineDone className="text-xl" />
             </button>

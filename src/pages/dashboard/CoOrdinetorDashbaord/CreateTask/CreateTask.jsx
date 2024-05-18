@@ -25,7 +25,10 @@ const CreateTask = () => {
       taskResours: data?.file,
       taskDescription: data.description,
       taskCreatedAt: new Date(),
-      CoSendStatus: "create",
+      CoStatus: "create",
+      BossStatus:"pending",
+      MockupStatus:"pending",
+      SeoStatus:"pending",
       taskCreator: {
         creatorId: singleUser?._id,
         creatorName: singleUser?.name,
@@ -34,12 +37,12 @@ const CreateTask = () => {
     };
 
     try {
-      const res = await useAxios.post("tasks", taskInfo);
+      const res = await useAxios.post("/tasks", taskInfo);
       if (res.data) {
         const notificationInfo = {
           receiverId: singleUser?._id,
           date: new Date(),
-          text: "You create a task",
+          text: "You created a task",
           count: 1,
           status: "Unread",
         };

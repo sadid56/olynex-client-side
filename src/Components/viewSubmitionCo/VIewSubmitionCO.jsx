@@ -7,25 +7,24 @@ import useAllUser from "../../hooks/useAllUser";
 
 const VIewSubmitionCO = () => {
   const task = useLoaderData();
-  const [allUser] = useAllUser()
+  const [allUser] = useAllUser();
   const navigate = useNavigate();
   const useAxios = useAxiosPublic();
-  const { _id, CoSendStatus } = task;
+  const { _id, CoStatus, BossStatus } = task;
   // filter boss
-  const filterBoss = allUser?.find(user => user?.role === "boss")
+  const filterBoss = allUser?.find((user) => user?.role === "boss");
   // handle send in BOSS
-  const handleSend = async()=>{
+  const handleSend = async () => {
     const sendInfo = {
-      bossInfo : {
+      bossInfo: {
         bossId: filterBoss?._id,
-        bossStatus: "pending",
-        sendData: new Date()
-      }
-    }
-    try{
-      const  res = await useAxios.patch(`/send-boss/${_id}`, sendInfo)
-      console.log(res.data?.acknowledged)
-      if(res.data?.acknowledged){
+        date: new Date(),
+      },
+      BossStatus:"send"
+    };
+    try {
+      const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
+      if (res.data?.acknowledged) {
         // boss notification
         const notificationInfo = {
           receiverId: filterBoss?._id,
@@ -46,22 +45,24 @@ const VIewSubmitionCO = () => {
         };
         // send a notification
         const respons = await useAxios.post("/notifications", notificationInfo);
-        const respons2 = await useAxios.post("/notifications", notificationInfo2);
-        console.log(respons.data && respons2.data)
-        if(respons.data){
+        const respons2 = await useAxios.post(
+          "/notifications",
+          notificationInfo2
+        );
+        if (respons.data && respons2.data) {
           toast.success("Task sended in BOSS!");
           navigate(-1);
         }
       }
-    }catch(err){
-      toast.error(err.message)
+    } catch (err) {
+      toast.error(err.message);
     }
-  }
+  };
 
   // handle reject
   const handlReject = async () => {
     const updateDoc = {
-      CoSendStatus: "accept",
+      CoStatus: "accept",
     };
     try {
       const res = await useAxios.patch(`/task-status/${_id}`, updateDoc);
@@ -96,23 +97,34 @@ const VIewSubmitionCO = () => {
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
-          {
-            CoSendStatus === "accept" ? <>
-            <button disabled  className="btn bg-primary hover:bg-blue-500 disabled text-white">
-              <MdDone /> Accepted
-            </button>
-            <button disabled className="btn btn-error disabled text-white">
-              <MdClose /> Reject
-            </button>
-          </> : <>
-          <button onClick={handleSend} className="btn bg-primary hover:bg-blue-500 text-white">
-            <MdDone /> Accept
-          </button>
-          <button onClick={handlReject} className="btn btn-error text-white">
-            <MdClose /> Reject
-          </button>
-        </>
-          }
+          { CoStatus === "completed" || BossStatus === "send" || BossStatus === "cencel" ?  (
+            <>
+              <button
+                disabled
+                className="btn bg-primary hover:bg-blue-500 disabled text-white"
+              >
+                <MdDone /> Accepted
+              </button>
+              <button disabled className="btn btn-error disabled text-white">
+                <MdClose /> Reject
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={handleSend}
+                className="btn bg-primary hover:bg-blue-500 text-white"
+              >
+                <MdDone /> Accept
+              </button>
+              <button
+                onClick={handlReject}
+                className="btn btn-error text-white"
+              >
+                <MdClose /> Reject
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

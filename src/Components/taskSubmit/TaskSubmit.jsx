@@ -48,7 +48,7 @@ const TaskSubmit = ({ task, refetch }) => {
       submitURl: data?.file,
       submitNote: data?.note || "",
       submitDate: new Date(),
-      CoSendStatus: "submit",
+      CoStatus: "submit",
     };
     try {
       const res = await useAxios.patch(`/submit-task/${task?._id}`, taskInfo);

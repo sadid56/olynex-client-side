@@ -1,35 +1,17 @@
 /* eslint-disable react/prop-types */
-import useAllUser from "../../../../hooks/useAllUser";
 import useAxiosPublic from "../../../../hooks/useAxios";
 import toast from "react-hot-toast";
 import TableRow from "../../../../Components/TableRow/TableRow";
 
 const BossTask = ({ task, isLoading, i, refetch }) => {
   const { _id } = task;
-  const [allUser] = useAllUser();
   const useAxios = useAxiosPublic();
-  // filter Mockup
-  const filterBoss = allUser?.find((user) => user?.role === "boss");
-  const filterMockup = allUser?.find((user) => user?.role === "mockup");
-  const filterSEO = allUser?.find((user) => user?.role === "seo");
   const handleSend = async () => {
     const sendInfo = {
-      bossInfo: {
-        bossId: filterBoss?._id,
-        bossStatus: "completed",
-        Data: new Date(),
-      },
-      mockupInfo: {
-        mockupId: filterMockup?._id,
-        mockupStatus: "completed",
-        Data: new Date(),
-      },
-      seoInfo: {
-        seoId: filterSEO?._id,
-        seoStatus: "completed",
-        Data: new Date(),
-      },
-      CoSendStatus: "completed",
+      BossStatus:"completed",
+      MockupStatus:"completed",
+      SeoStatus:"completed",
+      CoStatus: "completed",
     };
     try {
       const res = await useAxios.patch(`/complete-task/${_id}`, sendInfo);

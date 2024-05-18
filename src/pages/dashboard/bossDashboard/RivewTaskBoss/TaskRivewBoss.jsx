@@ -4,7 +4,7 @@ import TaskSend from "../../../../Components/taskSend/TaskSend";
 
 const TaskRivewBoss = ({task, isLoading, i, refetch }) => {
     const navigate = useNavigate()
-  const { taskTitle, taskCategory, taskCreatedAt, taskCreator, CoSendStatus, _id } =
+  const { taskTitle, taskCategory, taskCreatedAt, taskCreator, CoStatus, _id } =
     task;
   if (isLoading) {
     return <p className="text-center">loadiing...</p>;
@@ -20,24 +20,24 @@ const TaskRivewBoss = ({task, isLoading, i, refetch }) => {
       </td>
       <td>
         {/* sending  status wise btn */}
-        {(CoSendStatus === "pending" && (
+        {(CoStatus === "pending" && (
           <button className="btn btn-info text-white">
             <span className="loading loading-spinner text-white"></span>
           </button>
         )) ||
-        CoSendStatus === "accept" && (
+        CoStatus === "accept" && (
           <button className="btn btn-info text-white">Wait for submition</button>
         )|| 
-        CoSendStatus === "create" && (
+        CoStatus === "create" && (
             <TaskSend task={task} refetch={refetch} />
           )
           ||
-          (CoSendStatus === "reject" && (
+          (CoStatus === "reject" && (
             <button disabled className="btn btn-info text-white disabled">
               Rejected
             </button>
           )) ||
-          (CoSendStatus === "submit" && (
+          (CoStatus === "submit" && (
             <button onClick={()=>navigate(`/dashboard/all-task/${_id}`)} className="btn btn-info text-white">
               View Submition
             </button>

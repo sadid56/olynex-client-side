@@ -17,12 +17,12 @@ const ViewSubmitionMockup = () => {
         const sendInfo = {
           seoInfo: {
             seoId: findCEO?._id,
-            seoStatus: "pending",
-            sendData: new Date(),
+            date: new Date(),
           },
+          SeoStatus:"send"
         };
         try {
-          const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
+          const res = await useAxios.patch(`/send-seo/${_id}`, sendInfo);
           if (res.data?.acknowledged) {
             // SEO notification
             const notificationInfo = {
@@ -61,10 +61,12 @@ const ViewSubmitionMockup = () => {
  // handle reject
  const handlReject = async () => {
     const updateDoc = {
-      CoSendStatus: "accept",
+      CoStatus: "accept",
+      BossStatus:"cencel",
+      MockupStatus:"cencel"
     };
     try {
-      const res = await useAxios.patch(`/task-status/${_id}`, updateDoc);
+      const res = await useAxios.patch(`/reject-mockup/${_id}`, updateDoc);
       if (res.data?.acknowledged) {
         const notificationInfo = {
           receiverId: task?.receiverId,
