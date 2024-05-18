@@ -10,7 +10,7 @@ const VIewSubmitionCO = () => {
   const [allUser] = useAllUser();
   const navigate = useNavigate();
   const useAxios = useAxiosPublic();
-  const { _id, CoStatus, BossStatus } = task;
+  const { _id, BossStatus, MockupStatus, SeoStatus } = task;
   // filter boss
   const filterBoss = allUser?.find((user) => user?.role === "boss");
   // handle send in BOSS
@@ -20,7 +20,7 @@ const VIewSubmitionCO = () => {
         bossId: filterBoss?._id,
         date: new Date(),
       },
-      BossStatus:"send"
+      BossStatus: "send",
     };
     try {
       const res = await useAxios.patch(`/send-boss/${_id}`, sendInfo);
@@ -97,7 +97,11 @@ const VIewSubmitionCO = () => {
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
-          { CoStatus === "completed" || BossStatus === "send" || BossStatus === "cencel" ?  (
+          {BossStatus === "send" ||
+          BossStatus === "cencel" &&
+          !MockupStatus === "pending" ||
+          !SeoStatus === "pending"
+          ? (
             <>
               <button
                 disabled

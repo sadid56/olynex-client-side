@@ -52,17 +52,21 @@ const Navber = () => {
           <div
             style={{ boxShadow: "0px 0px 30px gray" }}
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md w-80 "
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-md md:w-80 w-52 "
           >
-            <div className="overflow-y-auto h-[80vh] flex flex-col gap-2">
-              {filterNotification?.map((notification) => (
-                <Notification
-                  key={notification?._id}
-                  notification={notification}
-                  refetch={refetch}
-                  isLoading={isLoading}
-                />
-              ))}
+            <div className="overflow-y-auto h-[50vh] md:h-[80vh] flex flex-col gap-2">
+              {filterNotification?.length === 0 ? (
+                <p className="text-red-500 text-center text-xl font-medium">No notification!</p>
+              ) : (
+                filterNotification?.map((notification) => (
+                  <Notification
+                    key={notification?._id}
+                    notification={notification}
+                    refetch={refetch}
+                    isLoading={isLoading}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

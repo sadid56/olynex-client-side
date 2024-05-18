@@ -70,8 +70,8 @@ const Sidebere = ({ setIsToggle }) => {
     },
     {
       condition: co,
-      path: "/dashboard/create-task2",
-      label: "Total Employe",
+      path: "/dashboard/employe-details",
+      label: "Employe Details",
       conditionIcon: <FaUsers />,
     },
     {

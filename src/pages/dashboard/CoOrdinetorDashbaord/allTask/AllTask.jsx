@@ -2,10 +2,27 @@ import { MdCreate } from "react-icons/md";
 import useTasks from "../../../../hooks/useTasks";
 import Task from "./task";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const AllTask = () => {
-  const [tasks, refetch, isLoading] = useTasks();
+  const [filterValue, setFilterValue] = useState("all");
+  const [tasks, refetch, isLoading] = useTasks(filterValue);
+  const [realTask, setRealTask] = useState([]);
   const navigate = useNavigate();
+
+  // refetch the page
+  useEffect(() => {
+    if (filterValue === "all") {
+      setRealTask(tasks);
+    } else {
+      const filteredTasks = tasks?.filter(task => task?.CoStatus === filterValue);
+      setRealTask(filteredTasks);
+    }
+  }, [tasks, filterValue]);
+
+  const handleFilter = (e) => {
+    setFilterValue(e.target.value);
+  };
 
   return (
     <div className="m-3">
@@ -14,14 +31,15 @@ const AllTask = () => {
           All <span className="text-primary">Tasks:</span>
         </h2>
         <div className="flex items-center gap-2">
-          {/* filter in co  task status */}
-          <select className="select select-ghost w-full max-w-xs border border-gray-300">
-            <option disabled selected>
+          {/* filter in co task status */}
+          <select onChange={handleFilter} value={filterValue} className="select select-ghost w-full max-w-xs border border-gray-300">
+            <option disabled value="">
               Filter
             </option>
-            <option>Pending</option>
-            <option>Completed</option>
-            <option>Accept</option>
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="accept">Accept</option>
+            <option value="reject">Rejected</option>
           </select>
           {/* task create button */}
           <button
@@ -32,7 +50,7 @@ const AllTask = () => {
           </button>
         </div>
       </div>
-      <div className="overflow-x-auto  rounded-md mt-5">
+      <div className="overflow-x-auto rounded-md mt-5">
         <table className="table">
           {/* head */}
           <thead className="bg-primary text-slate-700 py-3 text-lg font-medium">
@@ -46,8 +64,7 @@ const AllTask = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            {tasks?.map((task, i) => (
+            {realTask?.map((task, i) => (
               <Task
                 key={task?._id}
                 task={task}

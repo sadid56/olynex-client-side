@@ -22,6 +22,8 @@ import ViewSubmitionMockup from "../Components/ViewSubmitionMockup/ViewSubmition
 import CEORouter from "../Private/CEORouter";
 import SEOtasks from "../pages/dashboard/seoDashboard/SEOtasks/SEOtasks";
 import ViewSubmitionSEO from "../Components/ViewSubmititonSEO/ViewSubmitionSEO";
+import EmployeDetails from "../pages/dashboard/CoOrdinetorDashbaord/EmployeDetails/EmployeDetails";
+import EmployeWorkDetails from "../Components/EmployeWorkDetails/EmployeWorkDetails";
 
 const Routers = createBrowserRouter([
     {
@@ -94,6 +96,15 @@ const Routers = createBrowserRouter([
                 path:"/dashboard/all-task-seo/:id",
                 element:<CEORouter><ViewSubmitionSEO/></CEORouter>,
                 loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
+            },
+            {
+                path:"/dashboard/employe-details",
+                element:<CORouter><EmployeDetails/></CORouter>
+            },
+            {
+                path:"/dashboard/employe-details/:id",
+                element:<CORouter><EmployeWorkDetails/></CORouter>,
+                loader: ({params})=> fetch(`http://localhost:5000/singleUser/${params.id}`)
             }
         ]
     }

@@ -12,7 +12,7 @@ const ViewSubmitionMockup = () => {
     const useAxios = useAxiosPublic();
     // filter CEO
     const findCEO = allUser?.find((user) => user?.role === "seo");
-    const { _id } = task;
+    const { _id, BossStatus, SeoStatus, MockupStatus } = task;
     const handleSend = async () => {
         const sendInfo = {
           seoInfo: {
@@ -98,15 +98,26 @@ const ViewSubmitionMockup = () => {
         <div className="flex items-center gap-3">
           {/* acceptet then disabled other wise accept */}
 
-          {
-            //     bossInfo?.bossStatus === "pending" ? <>
-            //     <button disabled  className="btn bg-primary hover:bg-blue-500 disabled text-white">
-            //       <MdDone /> Accepted
-            //     </button>
-            //     <button disabled className="btn btn-error disabled text-white">
-            //       <MdClose /> Reject
-            //     </button>
-            //   </> :
+          
+          <div className="flex items-center gap-3">
+          {BossStatus === "cencel" ||
+          MockupStatus === "cencel" ||
+          BossStatus === "completed" ||
+          BossStatus === "clear" ||
+          SeoStatus === "send"
+          ? (
+            <>
+              <button
+                disabled
+                className="btn bg-primary hover:bg-blue-500 disabled text-white"
+              >
+                <MdDone /> Accepted
+              </button>
+              <button disabled className="btn btn-error disabled text-white">
+                <MdClose /> Reject
+              </button>
+            </>
+          ) : (
             <>
               <button
                 onClick={handleSend}
@@ -121,7 +132,8 @@ const ViewSubmitionMockup = () => {
                 <MdClose /> Reject
               </button>
             </>
-          }
+          )}
+        </div>
         </div>
       </div>
     </div>

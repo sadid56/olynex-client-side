@@ -6,7 +6,7 @@ const TableHeader = () => {
                 <th>#</th>
                 <th>Category</th>
                 <th>Sending date</th>
-                <th>Sender name</th>
+                <th>Creator</th>
                 <th>View task</th>
                 <th>status</th>
               </tr>
