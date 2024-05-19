@@ -97,7 +97,7 @@ const Routers = createBrowserRouter([
           </EmployeRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/task/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/task/${params.id}`),
       },
       {
         path: "/dashboard/all-task/:id",
@@ -107,7 +107,7 @@ const Routers = createBrowserRouter([
           </CORouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/task/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/task/${params.id}`),
       },
       {
         path: "/dashboard/all-task-boss/:id",
@@ -117,7 +117,7 @@ const Routers = createBrowserRouter([
           </BossRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/task/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/task/${params.id}`),
       },
       {
         path: "/dashboard/all-task-boss",
@@ -143,7 +143,7 @@ const Routers = createBrowserRouter([
           </MockupRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/task/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/task/${params.id}`),
       },
       {
         path: "/dashboard/all-task-seo",
@@ -161,7 +161,7 @@ const Routers = createBrowserRouter([
           </CEORouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/task/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/task/${params.id}`),
       },
       {
         path: "/dashboard/employe-details",
@@ -179,7 +179,7 @@ const Routers = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/singleUser/${params.id}`),
+          fetch(`https://olynex-server-gules.vercel.app/singleUser/${params.id}`),
       },
     ],
   },

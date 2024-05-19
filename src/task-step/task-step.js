@@ -10,4 +10,7 @@
 // step-10: Organization code and implement filter // done
 // step-11: Implement calender and get employee  task details with calender selector // done
 // step-12: Design a BOSS dashbaord & BOSS  another route // done
-// step-13: Design a CO  ordinetor dashbaord & another route // todo
+// step-13: Design a CO  ordinetor dashbaord & another route // done
+// step-14: Design a Employee dashbaord & another route // done
+// step-15: Deploy client side and server  side // done
+// step-16: Design mockup & SEO dashboard and ather route // todo

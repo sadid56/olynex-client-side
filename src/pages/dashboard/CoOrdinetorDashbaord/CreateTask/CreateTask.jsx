@@ -61,12 +61,12 @@ const CreateTask = () => {
   };
 
   return (
-    <div className="mx-10 mt-3">
+    <div  className="mx-10 mt-3">
       {/* Dashboard header */}
       <h2 className="text-2xl font-semibold">
         Create <span className="text-primary">Task:</span>
       </h2>
-      <div className="p-3 rounded-md shadow-xl">
+      <div className="p-3 rounded-md ">
         {/* Create task form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-5">
@@ -134,7 +134,7 @@ const CreateTask = () => {
             type="submit"
             className="btn bg-primary hover:bg-blue-600 text-white text-xl"
           >
-            <MdCreate /> Create
+            <MdCreate /> Save
           </button>
         </form>
       </div>

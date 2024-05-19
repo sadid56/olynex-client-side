@@ -1,0 +1,7 @@
+.HeaderCards{
+    border-radius: 8px;
+    background: #ececec;
+    padding: 30px 20px;
+    box-shadow: 10px 10px 40px #c4c3c3,
+                  -10px -10px 40px #ffffff;
+}

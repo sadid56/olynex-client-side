@@ -2,6 +2,7 @@
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const LineChartBoss = () => {
+    // fake data
     const data = [
         { name: 'Week 1', complete: 4000, incomplete: 2400, amt: 2400 },
         { name: 'Week 2', complete: 3000, incomplete: 1398, amt: 2210 },

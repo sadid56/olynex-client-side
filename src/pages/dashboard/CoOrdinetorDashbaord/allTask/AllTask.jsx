@@ -27,7 +27,7 @@ const AllTask = () => {
   return (
     <div className="m-3">
       <div className="w-full flex items-center justify-between">
-        <h2 className="text-2xl font-semibold border-b border-primary w-fit">
+        <h2 className="text-lg md:text-2xl font-semibold border-b border-primary w-fit">
           All <span className="text-primary">Tasks:</span>
         </h2>
         <div className="flex items-center gap-2">

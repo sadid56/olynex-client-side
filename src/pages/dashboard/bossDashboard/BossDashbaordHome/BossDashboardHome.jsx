@@ -31,7 +31,7 @@ const BossDashboardHome = () => {
           </div>
           {/* Pie chart  progress */}
           <div className="w-full md:w-[30%]">
-            <PieChartBoss />
+            <PieChartBoss value={66}/>
             <h3 className="text-xl font-semibold text-center">
               <span className="text-primary">Project</span> Status
             </h3>

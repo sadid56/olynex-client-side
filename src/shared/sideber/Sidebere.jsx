@@ -16,7 +16,6 @@ import {
 import { GoProjectRoadmap } from "react-icons/go";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { BsListTask, BsChatDots } from "react-icons/bs";
-import { BiTaskX } from "react-icons/bi";
 import "./Sideber.css";
 import StyledNavLink from "./StyleNavlink";
 import { useState } from "react";
@@ -104,16 +103,10 @@ const Sidebere = ({ setIsToggle }) => {
     },
     {
       condition: employe,
-      path: "/dashboard/complete-task",
-      label: "Complete Task",
+      path: "/dashboard/meet",
+      label: "Client Meet",
       conditionIcon: <FaTasks />,
-    },
-    {
-      condition: employe,
-      path: "/dashboard/progress-task",
-      label: "Progress Task",
-      conditionIcon: <BiTaskX />,
-    },
+    }
   ];
 
   return (

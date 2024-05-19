@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-const PieChartBoss = () => {
-    const percentage = 66;
+const PieChartBoss = ({value}) => {
+    const percentage = value;
       
       
     return (
