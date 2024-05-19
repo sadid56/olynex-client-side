@@ -38,12 +38,15 @@ const MockupTask = ({ task, isLoading, i }) => {
     }
 
     if (
-      (BossStatus === "cancel" &&
-        MockupStatus === "cancel" &&
+      (BossStatus === "cencel" &&
+        MockupStatus === "cencel" &&
         SeoStatus === "pending") ||
-      (BossStatus === "cancel" &&
-        MockupStatus === "cancel" &&
-        SeoStatus === "cancel")
+      (BossStatus === "cencel" &&
+        MockupStatus === "cencel" &&
+        SeoStatus === "cencel") ||
+        (BossStatus === "send" &&
+        MockupStatus === "send" &&
+        SeoStatus === "cencel")
     ) {
       return (
         <button className="btn-info btn text-white font-semibold cursor-default">

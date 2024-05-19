@@ -88,7 +88,7 @@ import { MdOutlineDone } from "react-icons/md";
 import { IoMdTime } from "react-icons/io";
 
 const BossTask = ({ task, isLoading, i, refetch }) => {
-  const { _id, BossStatus, MockupStatus, SeoStatus, CoStatus } = task;
+  const { _id, BossStatus, MockupStatus } = task;
   const useAxios = useAxiosPublic();
 
   const handleSend = async () => {
@@ -97,7 +97,7 @@ const BossTask = ({ task, isLoading, i, refetch }) => {
       MockupStatus: "completed",
       SeoStatus: "completed",
       CoStatus: "completed",
-      finishedAt: new Date(),
+      finisehdAt: new Date(),
     };
 
     try {
