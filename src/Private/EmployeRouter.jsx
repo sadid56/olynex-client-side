@@ -14,7 +14,7 @@ const EmployeRouter = ({ children }) => {
   if (user && employe) {
     return children;
   }
-  return <Navigate state={location?.pathname} to="/" />;
+  return <Navigate state={location?.pathname} to="/login" />;
 };
 
 export default EmployeRouter;

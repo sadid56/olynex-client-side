@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const EmployeDetail = ({ user }) => {
   const { date, name, email, role, photo, _id } = user;
   const navigate = useNavigate();
+  // amr sonar bangla english 
   return (
     <tr className="hover:bg-gray-200 cursor-pointer border-b border-gray-200 text-[16px] font-medium">
       <td className="border-r border-gray-200">

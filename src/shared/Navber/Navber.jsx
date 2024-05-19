@@ -29,7 +29,7 @@ const Navber = () => {
     logOut()
       .then(() => {
         toast.success("Logout.");
-        navigate("/");
+        navigate("/login");
       })
       .catch((err) => {
         toast.error(err.message);

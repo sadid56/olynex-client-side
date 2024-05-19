@@ -34,7 +34,13 @@ const Sidebere = ({ setIsToggle }) => {
       condition: boss,
       path: "/dashboard/all-task-boss",
       label: "Task Review",
-      conditionIcon: <MdTaskAlt/>,
+      conditionIcon: <MdTaskAlt />,
+    },
+    {
+      condition: boss,
+      path: "/dashboard/employe-details",
+      label: "Employe Details",
+      conditionIcon: <GoProjectRoadmap />,
     },
     {
       condition: boss,
@@ -42,12 +48,7 @@ const Sidebere = ({ setIsToggle }) => {
       label: "Clients",
       conditionIcon: <FaUsers />,
     },
-    {
-      condition: boss,
-      path: "/dashboard/project-details",
-      label: "Project Details",
-      conditionIcon: <GoProjectRoadmap />,
-    },
+
     {
       condition: boss,
       path: "/dashboard/messages",
@@ -55,12 +56,12 @@ const Sidebere = ({ setIsToggle }) => {
       conditionIcon: <BsChatDots />,
     },
     // CO related
-    
+
     {
       condition: co,
       path: "/dashboard/all-tasks",
       label: "All tasks",
-      conditionIcon: <MdTaskAlt/>,
+      conditionIcon: <MdTaskAlt />,
     },
     {
       condition: co,
@@ -85,14 +86,14 @@ const Sidebere = ({ setIsToggle }) => {
       condition: mockup,
       path: "/dashboard/all-task-mockup",
       label: "Task Mockup",
-      conditionIcon: <MdTaskAlt/>,
+      conditionIcon: <MdTaskAlt />,
     },
     // SEO related
     {
       condition: seo,
       path: "/dashboard/all-task-seo",
       label: "SEO tasks",
-      conditionIcon: <MdTaskAlt/>,
+      conditionIcon: <MdTaskAlt />,
     },
     // employ related
     {
@@ -147,27 +148,44 @@ const Sidebere = ({ setIsToggle }) => {
               )
           )}
           {/* event dropdown */}
-          {
-            boss && <div className="dropdown-container">
-            <button
-              className="flex items-center gap-2 text-xl font-semibold hover:bg-gray-600 p-2 rounded"
-              onClick={() => setToggleEvents(!toggleEvents)}
-            >
-              <span className="bg-primary p-1 rounded-md text-white">
-                <MdEvent />
-              </span>
-              Events{" "}
-              {!toggleEvents ? <IoIosArrowForward /> : <IoIosArrowDown />}
-            </button>
-            <div className={`dropdown-menu ${toggleEvents ? "open" : ""} p-2`}>
-              <ul className="dropdown-content space-y-2">
-                <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer"><span><FaRegDotCircle/></span> Weekly event</li>
-                <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer"><span><FaRegDotCircle/></span> Project event</li>
-                <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer"><span><FaRegDotCircle/></span>Event</li>
-              </ul>
+          {boss && (
+            <div className="dropdown-container">
+              <button
+                className="flex items-center gap-2 text-xl font-semibold hover:bg-gray-600 p-2 rounded"
+                onClick={() => setToggleEvents(!toggleEvents)}
+              >
+                <span className="bg-primary p-1 rounded-md text-white">
+                  <MdEvent />
+                </span>
+                Events{" "}
+                {!toggleEvents ? <IoIosArrowForward /> : <IoIosArrowDown />}
+              </button>
+              <div
+                className={`dropdown-menu ${toggleEvents ? "open" : ""} p-2`}
+              >
+                <ul className="dropdown-content space-y-2">
+                  <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer">
+                    <span>
+                      <FaRegDotCircle />
+                    </span>{" "}
+                    Weekly event
+                  </li>
+                  <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer">
+                    <span>
+                      <FaRegDotCircle />
+                    </span>{" "}
+                    Project event
+                  </li>
+                  <li className="flex items-center gap-2 hover:bg-gray-300 p-1 rounded cursor-pointer">
+                    <span>
+                      <FaRegDotCircle />
+                    </span>
+                    Event
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          }
+          )}
         </div>
         {/* profile & setting  rotuer  define in every user role */}
         <div className="mt-5 space-y-2">

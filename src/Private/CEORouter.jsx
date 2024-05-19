@@ -14,7 +14,7 @@ const CEORouter = ({children}) => {
     if(user && seo){
         return children
     }
-    return <Navigate state={location?.pathname} to='/'/>
+    return <Navigate state={location?.pathname} to='/login'/>
 };
 
 export default CEORouter;

@@ -24,90 +24,165 @@ import SEOtasks from "../pages/dashboard/seoDashboard/SEOtasks/SEOtasks";
 import ViewSubmitionSEO from "../Components/ViewSubmititonSEO/ViewSubmitionSEO";
 import EmployeDetails from "../pages/dashboard/CoOrdinetorDashbaord/EmployeDetails/EmployeDetails";
 import EmployeWorkDetails from "../Components/EmployeWorkDetails/EmployeWorkDetails";
+import Home from "../pages/Home/Home";
 
 const Routers = createBrowserRouter([
-    {
-        path:"/",
-        element:<Login/>,
-        errorElement:<ErrorPage/>,
-    },
-    {
-        path:"registration",
-        element:<Registration/>
-    },
-    {
-        path:"/dashboard",
-        element:<Main/>,
-        errorElement:<ErrorPage/>,
-        children:[
-            {
-                path:"/dashboard/home",
-                element: <PrivateRoute><DashboardMainHome/></PrivateRoute>
-            },
-            {
-                path:"/dashboard/profile",
-                element:<PrivateRoute><Profile/></PrivateRoute>
-            },
-            {
-                path:"/dashboard/create-task",
-                element:<CORouter><CreateTask/></CORouter>
-            },
-            {
-                path:"/dashboard/all-tasks",
-                element:<CORouter><AllTask/></CORouter>
-            },
-            {
-                path:"/dashboard/my-task",
-                element: <EmployeRouter><MyTask/></EmployeRouter>
-            },
-            {
-                path:"/dashboard/my-task/:id",
-                element:<EmployeRouter><ViewTask/></EmployeRouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
-            },
-            {
-                path:"/dashboard/all-task/:id",
-                element:<CORouter><VIewSubmitionCO/></CORouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
-            },
-            {
-                path:"/dashboard/all-task-boss/:id",
-                element:<BossRouter><VIewSubmitionBoss/></BossRouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
-            },
-            {
-                path:"/dashboard/all-task-boss",
-                element: <BossRouter><BossTasks/></BossRouter>
-            },
-            {
-                path:"/dashboard/all-task-mockup",
-                element:<MockupRouter><MockupTasks/></MockupRouter>
-            },
-            {
-                path:"/dashboard/all-task-mockup/:id",
-                element:<MockupRouter><ViewSubmitionMockup/></MockupRouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
-            },
-            {
-                path:"/dashboard/all-task-seo",
-                element:<CEORouter><SEOtasks/></CEORouter>
-            },
-            {
-                path:"/dashboard/all-task-seo/:id",
-                element:<CEORouter><ViewSubmitionSEO/></CEORouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/task/${params.id}`)
-            },
-            {
-                path:"/dashboard/employe-details",
-                element:<CORouter><EmployeDetails/></CORouter>
-            },
-            {
-                path:"/dashboard/employe-details/:id",
-                element:<CORouter><EmployeWorkDetails/></CORouter>,
-                loader: ({params})=> fetch(`http://localhost:5000/singleUser/${params.id}`)
-            }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "registration",
+    element: <Registration />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Main />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/dashboard/home",
+        element: (
+          <PrivateRoute>
+            <DashboardMainHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/create-task",
+        element: (
+          <CORouter>
+            <CreateTask />
+          </CORouter>
+        ),
+      },
+      {
+        path: "/dashboard/all-tasks",
+        element: (
+          <CORouter>
+            <AllTask />
+          </CORouter>
+        ),
+      },
+      {
+        path: "/dashboard/my-task",
+        element: (
+          <EmployeRouter>
+            <MyTask />
+          </EmployeRouter>
+        ),
+      },
+      {
+        path: "/dashboard/my-task/:id",
+        element: (
+          <EmployeRouter>
+            <ViewTask />
+          </EmployeRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/task/${params.id}`),
+      },
+      {
+        path: "/dashboard/all-task/:id",
+        element: (
+          <CORouter>
+            <VIewSubmitionCO />
+          </CORouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/task/${params.id}`),
+      },
+      {
+        path: "/dashboard/all-task-boss/:id",
+        element: (
+          <BossRouter>
+            <VIewSubmitionBoss />
+          </BossRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/task/${params.id}`),
+      },
+      {
+        path: "/dashboard/all-task-boss",
+        element: (
+          <BossRouter>
+            <BossTasks />
+          </BossRouter>
+        ),
+      },
+      {
+        path: "/dashboard/all-task-mockup",
+        element: (
+          <MockupRouter>
+            <MockupTasks />
+          </MockupRouter>
+        ),
+      },
+      {
+        path: "/dashboard/all-task-mockup/:id",
+        element: (
+          <MockupRouter>
+            <ViewSubmitionMockup />
+          </MockupRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/task/${params.id}`),
+      },
+      {
+        path: "/dashboard/all-task-seo",
+        element: (
+          <CEORouter>
+            <SEOtasks />
+          </CEORouter>
+        ),
+      },
+      {
+        path: "/dashboard/all-task-seo/:id",
+        element: (
+          <CEORouter>
+            <ViewSubmitionSEO />
+          </CEORouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/task/${params.id}`),
+      },
+      {
+        path: "/dashboard/employe-details",
+        element: (
+          <PrivateRoute>
+            <EmployeDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/employe-details/:id",
+        element: (
+          <PrivateRoute>
+            <EmployeWorkDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/singleUser/${params.id}`),
+      },
+    ],
+  },
+]);
 
 export default Routers;

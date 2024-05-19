@@ -14,7 +14,7 @@ const BossRouter = ({children}) => {
     if(user && boss){
         return children
     }
-    return <Navigate state={location?.pathname} to='/'/>
+    return <Navigate state={location?.pathname} to='/login'/>
 }
  
 export default BossRouter;

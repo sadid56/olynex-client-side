@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import useTasks from "../../hooks/useTasks";
+import { MdArrowBack } from "react-icons/md";
+import "./EmployeDetails.css"
 
 const EmployeWorkDetails = () => {
   const user = useLoaderData();
   const { name, email, role, _id } = user;
   const [tasks] = useTasks();
+  const navigate = useNavigate()
 
   const [filteredData, setFilteredData] = useState([]);
 
@@ -38,19 +41,22 @@ const EmployeWorkDetails = () => {
     handleSelect({ selection: selectionRange });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks]);
-  console.log(filteredData);
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="border-l-2 border-primary pl-2 my-8">
+      {/* details title */}
+      <div className="border-l-2 border-primary pl-2 my-8 flex  items-center justify-between mx-3">
+        <div>
         <h2 className="text-3xl font-semibold">
           Select a <span className="text-primary">date:</span>
         </h2>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm md:text-lg">
           Select a date and date range then see user project complete details.
         </p>
+        </div>
+        <button onClick={()=>navigate(-1)} className="btn btn-circle btn-sm text-xl bg-primary"><MdArrowBack/></button>
       </div>
-      <div className="flex items-center gap-10 justify-center shadow-xl ">
+      <div className="flex flex-col md:flex-row items-center gap-10 justify-center shadow-xl ">
         {/* User details */}
         <div className="space-y-4 h-full">
           <h2 className="text-2xl font-semibold">
@@ -65,7 +71,7 @@ const EmployeWorkDetails = () => {
           </h3>
         </div>
         {/* Calendar */}
-        <div>
+        <div className="date-range-picker-container overflow-x-auto">
           <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} />
         </div>
       </div>

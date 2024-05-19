@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import img from "../assets/images/login.jpg";
+import img from "../assets/images/registration.jpg";
 import Input from "../Components/Input/Input";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
@@ -100,7 +100,7 @@ const Registration = () => {
             </div>
             <p className="text-slate-300">
               Already have an accoun?{" "}
-              <Link to={"/"} className="text-primary link-hover">
+              <Link to={"/login"} className="text-primary link-hover">
                 Login
               </Link>
             </p>

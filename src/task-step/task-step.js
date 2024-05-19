@@ -8,4 +8,6 @@
 // step-8: Co send task in boss. Boss can accept and reject it // done
 // step-9: Boss send a task mockup then mockup send task SEO and  then SEO recend boss // done
 // step-10: Organization code and implement filter // done
-// step-11: Implement calender and get employee  task details with calender selector // todo
+// step-11: Implement calender and get employee  task details with calender selector // done
+// step-12: Design a BOSS dashbaord & BOSS  another route // done
+// step-13: Design a CO  ordinetor dashbaord & another route // todo

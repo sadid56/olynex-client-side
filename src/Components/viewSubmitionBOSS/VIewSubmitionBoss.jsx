@@ -88,7 +88,7 @@ const VIewSubmitionBoss = () => {
     }
   };
   return (
-    <div className="flex items-center  mt-3 justify-center">
+    <div className="flex items-center mx-3  mt-3 justify-center">
       <div
         style={{ boxShadow: "0px 0px 30px gray" }}
         className="space-y-2 p-6 rounded-md"

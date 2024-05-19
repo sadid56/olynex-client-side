@@ -1,0 +1,18 @@
+.date-range-picker-container {
+    width: 100%;
+    max-width: 400px; /* Set a max-width for larger screens */
+  }
+  
+  @media (max-width: 768px) {
+    .date-range-picker-container {
+      width: 100%; /* Full width for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .date-range-picker-container {
+      width: 100%;
+      /* Additional styles for very small screens if needed */
+    }
+  }
+  

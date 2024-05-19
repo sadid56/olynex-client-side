@@ -14,7 +14,7 @@ const CORouter = ({children}) => {
     if(user && co){
         return children
     }
-    return <Navigate state={location?.pathname} to='/'/>
+    return <Navigate state={location?.pathname} to='/login'/>
 }
  
 export default CORouter;

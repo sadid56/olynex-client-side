@@ -10,24 +10,54 @@ const MockupTask = ({ task, isLoading, i }) => {
     return <p className="text-center">loading...</p>;
   }
 
+  // define a all status
   const renderStatus = () => {
-    if (BossStatus === "send" && MockupStatus === "cancel" ||
-        BossStatus === "send" && MockupStatus === "send" && SeoStatus === "pending" ||
-        BossStatus === "send" && MockupStatus === "send" && SeoStatus === "cancel") {
-      return <p className="text-primary flex items-center gap-1">Pending <span className="loading loading-xs loading-spinner text-info"></span></p>;
+    if (
+      (BossStatus === "send" && MockupStatus === "cancel") ||
+      (BossStatus === "send" &&
+        MockupStatus === "send" &&
+        SeoStatus === "pending") ||
+      (BossStatus === "send" &&
+        MockupStatus === "send" &&
+        SeoStatus === "cancel")
+    ) {
+      return (
+        <p className="text-primary flex items-center gap-1">
+          Pending{" "}
+          <span className="loading loading-xs loading-spinner text-info"></span>
+        </p>
+      );
     }
 
     if (SeoStatus === "send") {
-      return <p className="text-primary flex items-center gap-1">Accepted <MdOutlineDone className="text-xl"/></p>;
+      return (
+        <p className="text-primary flex items-center gap-1">
+          Accepted <MdOutlineDone className="text-xl" />
+        </p>
+      );
     }
 
-    if (BossStatus === "cancel" && MockupStatus === "cancel" && SeoStatus === "pending" ||
-        BossStatus === "cancel" && MockupStatus === "cancel" && SeoStatus === "cancel") {
-      return <button className="btn-info btn text-white font-semibold cursor-default">Wait for recent <IoMdTime /></button>;
+    if (
+      (BossStatus === "cancel" &&
+        MockupStatus === "cancel" &&
+        SeoStatus === "pending") ||
+      (BossStatus === "cancel" &&
+        MockupStatus === "cancel" &&
+        SeoStatus === "cancel")
+    ) {
+      return (
+        <button className="btn-info btn text-white font-semibold cursor-default">
+          Wait for recent <IoMdTime />
+        </button>
+      );
     }
 
     if (BossStatus === "completed") {
-      return <button className="text-green-600 text-lg font-semibold flex items-center gap-1">Completed <MdOutlineDone className="text-xl" /></button>;
+      return (
+        <button className="text-green-600 text-lg font-semibold flex items-center gap-1">
+          Completed <MdOutlineDone className="text-xl" />
+        </button>
+      );
     }
 
     return null;
