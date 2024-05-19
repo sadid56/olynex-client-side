@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 const useMockup = () => {
   const { user } = useAuth();
   const useAxios = useAxiosPublic();
-  const { data: mockup, isFetching: mockupLoading } = useQuery({
+  const { data: mockup, isLoading: mockupLoading } = useQuery({
     queryKey: ["mockup", user?.email],
     queryFn: async () => {
       const res = await useAxios.get(`/user/${user?.email}`);

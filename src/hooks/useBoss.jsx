@@ -7,7 +7,7 @@ import useAxiosPublic from './useAxios';
 const useBoss = () => {
     const {user} = useAuth();
     const useAxios = useAxiosPublic()
-    const {data: boss, isFetching:bossLoading} = useQuery({
+    const {data: boss, isLoading:bossLoading} = useQuery({
         queryKey:["boss", user?.email],
         queryFn: async()=>{
             const res = await useAxios.get(`/user/${user?.email}`);

@@ -6,7 +6,7 @@ import useAxiosPublic from './useAxios';
 const useCoOrdinetor = () => {
     const {user} = useAuth();
     const useAxios = useAxiosPublic()
-    const {data: co, isFetching:CoLoading} = useQuery({
+    const {data: co, isLoading:CoLoading} = useQuery({
         queryKey:["CO-ordinetor", user?.email],
         queryFn: async()=>{
             const res = await useAxios.get(`/user/${user?.email}`);
