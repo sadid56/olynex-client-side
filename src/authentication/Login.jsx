@@ -22,7 +22,7 @@ const Login = () => {
       await signIn(data?.email, data?.password)
         .then(() => {
           toast.success(`login Success !`);
-          navigate("/");
+          navigate("/dashboard/home");
         })
         .catch((err) => {
           toast.error(err.message);

@@ -7,7 +7,6 @@ import CoHome from "../CoOrdinetorDashbaord/CoHome/CoHome";
 import BossDashboardHome from "../bossDashboard/BossDashbaordHome/BossDashboardHome";
 import EmployeHome from "../employDashboard/employHome/EmployeHome";
 import MockupHome from "../mockupDashboard/mockupHome/MockupHome";
-import SEOHome from "../seoDashboard/seoHome/SEOHome";
 
 const DashboardMainHome = () => {
   const [co] = useCoOrdinetor();
@@ -21,7 +20,7 @@ const DashboardMainHome = () => {
       {(boss && <BossDashboardHome />) ||
         (co && <CoHome />) ||
         (mockup && <MockupHome />) ||
-        (seo && <SEOHome />) ||
+        (seo && <MockupHome />) ||
         (employe && <EmployeHome />)}
     </div>
   );

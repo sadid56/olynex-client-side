@@ -1,8 +1,9 @@
-import useAllUser from "../../hooks/useAllUser";
-import useTasks from "../../hooks/useTasks";
-import "./bossCo.css";
 
-const BossCoDashboardHeader = () => {
+import useAllUser from "../../../../hooks/useAllUser";
+import useTasks from "../../../../hooks/useTasks";
+import "./mockup.css"
+
+const MockupDashboardHeader = () => {
   const [tasks] = useTasks()
   const [allUser] = useAllUser();
 
@@ -27,9 +28,9 @@ const BossCoDashboardHeader = () => {
     },
   ];
   return (
-    <div className="grid grid-cols-1  md:grid-cols-3 gap-5 my-3 mx-3">
+    <div className="grid grid-cols-1  md:grid-cols-3 gap-5">
       {data.map((item, i) => (
-        <div className="dashbaord-header-card" key={i}>
+        <div className="mockupHeader" key={i}>
           <h2 className="text-xl font-semibold"> {item?.title}</h2>
           <h1 className="text-2xl font-bold text-primary">{item?.value}</h1>
         </div>
@@ -38,4 +39,4 @@ const BossCoDashboardHeader = () => {
   );
 };
 
-export default BossCoDashboardHeader;
+export default MockupDashboardHeader;
